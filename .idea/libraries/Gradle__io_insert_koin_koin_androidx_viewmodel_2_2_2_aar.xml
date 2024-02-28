@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: io.insert-koin:koin-androidx-viewmodel:2.2.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ea9897dd3b9510da213f54bf05242d45/transformed/jetified-koin-androidx-viewmodel-2.2.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ea9897dd3b9510da213f54bf05242d45/transformed/jetified-koin-androidx-viewmodel-2.2.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.insert-koin/koin-androidx-viewmodel/2.2.2/6a5a75b98e5d2b5bf034397e0d312b81b17231d8/koin-androidx-viewmodel-2.2.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.insert-koin/koin-androidx-viewmodel/2.2.2/93247a6ecc6e9ff3fff0f52373642f6d5311174f/koin-androidx-viewmodel-2.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

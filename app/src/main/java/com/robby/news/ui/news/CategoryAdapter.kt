@@ -6,10 +6,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.robby.news.R
 import com.robby.news.databinding.AdapterCategoryBinding
+import com.robby.news.util.Constant.ZERO
 
 class CategoryAdapter(
-    var categories: List<CategoryModel>,
-    var listener: OnAdapterListener,
+    private var categories: List<CategoryModel>,
+    private var listener: OnAdapterListener,
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private val items = arrayListOf<TextView>()
@@ -32,7 +33,7 @@ class CategoryAdapter(
             listener.onClick( category )
             setColor( holder.binding.category )
         }
-        setColor(items[0]) /// first load
+        setColor(items[ZERO]) /// first load
     }
 
     interface OnAdapterListener {

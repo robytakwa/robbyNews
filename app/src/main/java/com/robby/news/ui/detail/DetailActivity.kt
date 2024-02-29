@@ -11,6 +11,8 @@ import com.robby.news.R
 import com.robby.news.databinding.ActivityDetailBinding
 import com.robby.news.databinding.CustomToolbarBinding
 import com.robby.news.source.news.ArticleModel
+import com.robby.news.util.Constant.EMPTY_STRING
+import com.robby.news.util.Constant.ZERO
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
 
@@ -32,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
 
         setSupportActionBar( toolbar.container )
         supportActionBar!!.apply {
-            title = ""
+            title = EMPTY_STRING
             setDisplayHomeAsUpEnabled(true)
         }
 
@@ -64,7 +66,7 @@ class DetailActivity : AppCompatActivity() {
             true
         }
         viewModel.isBookmark.observe(this, Observer{
-            if (it == 0) menuBookmark.setIcon(R.drawable.ic_add)
+            if (it == ZERO) menuBookmark.setIcon(R.drawable.ic_add)
             else menuBookmark.setIcon(R.drawable.ic_check)
         })
 

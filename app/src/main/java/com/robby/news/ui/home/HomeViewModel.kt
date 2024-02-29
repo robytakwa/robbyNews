@@ -6,6 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.robby.news.source.news.NewsModel
 import com.robby.news.source.news.NewsRepository
 import com.robby.news.ui.news.CategoryModel
+import com.robby.news.util.Constant.EMPTY_STRING
+import com.robby.news.util.Constant.ONE
+import com.robby.news.util.Constant.TWENTY_POINT_0
 import kotlinx.coroutines.launch
 import org.koin.dsl.module
 import timber.log.Timber
@@ -28,41 +31,41 @@ class HomeViewModel(
     val category by lazy { MutableLiveData<String>() }
 
     init {
-        category.value = ""
+        category.value = EMPTY_STRING
         message.value = null
     }
 
-    var query = ""
-    var page = 1
-    var total = 1
+    var query = EMPTY_STRING
+    var page = ONE
+    var total = ONE
 
     fun fetch() {
         Timber.e("fetchPage: $page")
-        if (page > 1) loadMore.value = true else loading.value = true
+        if (page > ONE) loadMore.value = true else loading.value = true
         viewModelScope.launch {
             try {
-                val response = repository.page( category.value, query, page )
+                val response = repository.page(category.value, query, page)
                 news.value = response
-                val totalResults: Double = response.totalResults / 20.0
+                val totalResults: Double = response.totalResults / TWENTY_POINT_0
                 total = ceil(totalResults).toInt()
-                page ++
+                page++
                 loading.value = false
                 loadMore.value = false
-            } catch (e: Exception ) {
+            } catch (e: Exception) {
                 message.value = "Terjadi kesalahan" // e.localizedMessage
             }
         }
     }
 
-    val categories = listOf<CategoryModel>(
-            CategoryModel("", "Berita Utama"),
-            CategoryModel("business", "Bisnis"),
-            CategoryModel("entertainment", "Hiburan"),
-            CategoryModel("general", "Umum"),
-            CategoryModel("health", "Kesehatan"),
-            CategoryModel("science", "Sains"),
-            CategoryModel("sports", "Olah Raga"),
-            CategoryModel("technology", "Teknologi")
+    val categories = listOf(
+        CategoryModel("", "Berita Utama"),
+        CategoryModel("business", "Bisnis"),
+        CategoryModel("entertainment", "Hiburan"),
+        CategoryModel("general", "Umum"),
+        CategoryModel("health", "Kesehatan"),
+        CategoryModel("science", "Sains"),
+        CategoryModel("sports", "Olah Raga"),
+        CategoryModel("technology", "Teknologi")
     )
 
 }

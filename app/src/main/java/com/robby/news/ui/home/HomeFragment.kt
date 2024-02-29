@@ -2,7 +2,9 @@ package com.robby.news.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.widget.NestedScrollView
@@ -16,6 +18,8 @@ import com.robby.news.ui.detail.DetailActivity
 import com.robby.news.ui.news.CategoryAdapter
 import com.robby.news.ui.news.CategoryModel
 import com.robby.news.ui.news.NewsAdapter
+import com.robby.news.util.Constant.ONE
+import com.robby.news.util.Constant.ZERO
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
 import timber.log.Timber
@@ -31,10 +35,8 @@ class HomeFragment : Fragment() {
     private lateinit var bindingToolbar: CustomToolbarBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         bindingToolbar = binding.toolbar
         return binding.root
@@ -58,6 +60,7 @@ class HomeFragment : Fragment() {
                 firstPage()
                 return false
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let { viewModel.query = it }
                 return true
@@ -65,11 +68,11 @@ class HomeFragment : Fragment() {
         })
 
         binding.listNews.adapter = newsAdapter
-        viewModel.news.observe( viewLifecycleOwner, {
+        viewModel.news.observe(viewLifecycleOwner) {
             Timber.e("articleSize: ${it.articles.size}")
-            if (viewModel.page == 1) newsAdapter.clear()
-            newsAdapter.add( it.articles )
-        })
+            if (viewModel.page == ONE) newsAdapter.clear()
+            newsAdapter.add(it.articles)
+        }
 
 
         viewModel.category.observe(viewLifecycleOwner, Observer {
@@ -78,10 +81,11 @@ class HomeFragment : Fragment() {
             firstPage()
         })
 
-        binding.scroll.setOnScrollChangeListener {
-                v: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
-            if (scrollY == v?.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
-                if (viewModel.page <= viewModel.total && viewModel.loadMore.value == false) viewModel.fetch()
+        binding.scroll.setOnScrollChangeListener { v: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
+            when (scrollY) {
+                v?.getChildAt(ZERO)!!.measuredHeight - v.measuredHeight -> {
+                    if (viewModel.page <= viewModel.total && viewModel.loadMore.value == false) viewModel.fetch()
+                }
             }
         }
 
@@ -93,10 +97,10 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun firstPage(){
-        binding.scroll.scrollTo(0, 0)
-        viewModel.page = 1
-        viewModel.total = 1
+    private fun firstPage() {
+        binding.scroll.scrollTo(ZERO, ZERO)
+        viewModel.page = ONE
+        viewModel.total = ONE
         viewModel.fetch()
     }
 
@@ -104,8 +108,9 @@ class HomeFragment : Fragment() {
         NewsAdapter(arrayListOf(), object : NewsAdapter.OnAdapterListener {
             override fun onClick(article: ArticleModel) {
                 startActivity(
-                    Intent(requireActivity(), DetailActivity::class.java)
-                        .putExtra("detail", article)
+                    Intent(requireActivity(), DetailActivity::class.java).putExtra(
+                        "detail", article
+                    )
                 )
             }
         })

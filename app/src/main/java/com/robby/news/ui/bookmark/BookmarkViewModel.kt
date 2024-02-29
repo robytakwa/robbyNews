@@ -1,6 +1,5 @@
 package com.robby.news.ui.bookmark
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.robby.news.source.news.NewsRepository
 import org.koin.dsl.module

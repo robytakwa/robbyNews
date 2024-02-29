@@ -11,6 +11,7 @@ import com.robby.news.databinding.FragmentBookmarkBinding
 import com.robby.news.source.news.ArticleModel
 import com.robby.news.ui.detail.DetailActivity
 import com.robby.news.ui.news.NewsAdapter
+import com.robby.news.util.Constant.TWO
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
 
@@ -25,10 +26,10 @@ class BookmarkFragment : Fragment() {
     private lateinit var bindingToolbar: CustomToolbarBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentBookmarkBinding.inflate(inflater, container, false)
         bindingToolbar = binding.toolbar
         return binding.root
@@ -41,21 +42,21 @@ class BookmarkFragment : Fragment() {
         binding.viewModel = viewModel
         bindingToolbar.title = viewModel.title
 
-        NewsAdapter.VIEW_TYPE = 2
+        NewsAdapter.VIEW_TYPE = TWO
         binding.listBookmark.adapter = adapter
 
-        viewModel.articles.observe(viewLifecycleOwner, {
+        viewModel.articles.observe(viewLifecycleOwner) {
             adapter.clear()
-            adapter.add( it )
-        })
+            adapter.add(it)
+        }
     }
 
     private val adapter by lazy {
-        NewsAdapter(arrayListOf(), object: NewsAdapter.OnAdapterListener {
+        NewsAdapter(arrayListOf(), object : NewsAdapter.OnAdapterListener {
             override fun onClick(article: ArticleModel) {
                 startActivity(
-                        Intent(requireActivity(), DetailActivity::class.java)
-                                .putExtra("detail", article)
+                    Intent(requireActivity(), DetailActivity::class.java)
+                        .putExtra("detail", article)
                 )
             }
         })

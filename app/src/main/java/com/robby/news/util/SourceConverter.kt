@@ -10,8 +10,7 @@ object SourceConverter {
     @TypeConverter
     @JvmStatic
     fun toSource(value: String?): SourceModel {
-        val modelType = object :
-                TypeToken<SourceModel?>() {}.type
+        val modelType = object : TypeToken<SourceModel?>() {}.type
         return Gson().fromJson(value, modelType)
     }
 

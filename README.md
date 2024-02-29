@@ -3,6 +3,7 @@ Robby news is a news app powered by <a href="https://newsapi.org/"><b>NewsAPI.or
 - Clean and Simple Material UI.
 - Supports dark theme.
 - Clean Code
+- MVVM Design Pattern
 
   # Libraries used
 - [**Kotlin**](https://github.com/JetBrains/kotlin) 
